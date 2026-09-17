@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="End-suction centrifugal pump schematic">
+<rect width="400" height="300" fill="#eaf0f2"/>
+<g fill="none" stroke="#0f3c4c" stroke-width="2.2" stroke-linejoin="round">
+<circle cx="170" cy="150" r="72"/><circle cx="170" cy="150" r="46"/>
+<path d="M170 78 L170 40 L212 40 L212 78"/>
+<path d="M98 150 L44 150 L44 118 L44 182 L44 150"/>
+<rect x="242" y="118" width="96" height="64" rx="4"/>
+<path d="M338 134 L360 134 L360 166 L338 166"/>
+<path d="M242 150 L222 150"/>
+<path d="M120 222 L360 222 L360 236 L120 236 Z"/>
+</g>
+<g fill="none" stroke="#1b7f9e" stroke-width="1.4" stroke-dasharray="5 4"><circle cx="170" cy="150" r="24"/><path d="M44 150 L98 150"/></g>
+</svg>

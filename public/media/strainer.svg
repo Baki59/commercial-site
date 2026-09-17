@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Y-type strainer schematic">
+<rect width="400" height="300" fill="#eaf0f2"/>
+<g fill="none" stroke="#0f3c4c" stroke-width="2.2" stroke-linejoin="round">
+<path d="M56 128 L56 182 L116 182 L116 128 Z"/><path d="M284 128 L284 182 L344 182 L344 128 Z"/>
+<path d="M116 132 L284 132 L284 178 L116 178 Z"/>
+<path d="M196 178 L250 248 L296 216 L242 152"/>
+<path d="M250 248 L272 262"/>
+</g>
+<g fill="none" stroke="#1b7f9e" stroke-width="1.4" stroke-dasharray="4 4"><path d="M206 172 L252 230"/></g>
+</svg>

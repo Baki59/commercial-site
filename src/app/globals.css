@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+/* ===========================================================================
+   SAZIN DESIGN SYSTEM — single source of truth for colour, type and spacing.
+   Every component reads from these tokens. Changing a value here re-themes
+   the whole website, no component edits required.
+   =========================================================================== */
+
+@theme {
+  /* --- Colour ------------------------------------------------------------
+     Cool "blueprint" neutrals + a deep marine primary + one technical accent.
+     Deliberately low-glare: no pure white surfaces, no pure black text.      */
+  --color-ink: #0d1f26;          /* primary text */
+  --color-ink-soft: #33484f;     /* secondary text */
+  --color-muted: #5c6e76;        /* meta / captions */
+  --color-line: #dce4e7;         /* hairlines, table rules */
+  --color-line-strong: #c3d0d5;
+  --color-paper: #f2f5f6;        /* page background */
+  --color-surface: #ffffff;      /* cards, panels */
+  --color-surface-sunk: #eaf0f2;
+
+  --color-marine: #0f3c4c;       /* brand primary */
+  --color-marine-deep: #082733;  /* dark sections, footer */
+  --color-marine-soft: #1c5769;
+
+  --color-accent: #1b7f9e;       /* links, active states, focus */
+  --color-accent-deep: #14657f;
+  --color-accent-wash: #e3eff3;  /* selected chips, table header */
+
+  --color-signal: #c9721f;       /* downloads & certifications only */
+  --color-ok: #1d7a5f;
+  --color-danger: #a33224;
+
+  /* --- Type --------------------------------------------------------------
+     Archivo    : headings — industrial grotesque, tight, engineered.
+     IBM Plex Sans : body — drawn for technical documentation, very legible.
+     IBM Plex Mono : model numbers & part codes ONLY (they are real codes,
+                     not decoration — mono keeps digit widths aligned).      */
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --text-2xs: 0.6875rem;
+
+  /* --- Structure --------------------------------------------------------- */
+  --radius-xs: 2px;
+  --radius-sm: 3px;
+  --radius-md: 5px;
+
+  --shadow-raise: 0 1px 2px rgba(13, 31, 38, 0.06), 0 8px 24px -12px rgba(13, 31, 38, 0.18);
+  --shadow-panel: 0 24px 64px -32px rgba(8, 39, 51, 0.45);
+
+  --breakpoint-3xl: 96rem;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.018em;
+    line-height: 1.12;
+    /* No colour here on purpose: headings inherit from their section, so a
+       heading inside a dark panel stays white without an override. */
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+
+  /* Visible, branded keyboard focus everywhere. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-marine);
+    color: #fff;
+  }
+
+  /* Numbers in spec tables must line up column-to-column. */
+  table { font-variant-numeric: tabular-nums; }
+}
+
+@layer components {
+  /* Fine engineered grid used behind dark panels. Structural, not decorative:
+     it signals the technical-drawing world the products live in. */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  .prose-doc :where(h2) { font-size: 1.5rem; margin-top: 2.25rem; margin-bottom: 0.75rem; }
+  .prose-doc :where(h3) { font-size: 1.15rem; margin-top: 1.75rem; margin-bottom: 0.5rem; }
+  .prose-doc :where(p) { margin-bottom: 1rem; max-width: 72ch; color: var(--color-ink-soft); }
+  .prose-doc :where(ul) { margin-bottom: 1rem; padding-left: 1.1rem; list-style: disc; color: var(--color-ink-soft); }
+  .prose-doc :where(li) { margin-bottom: 0.35rem; }
+  .prose-doc :where(a) { color: var(--color-accent); text-decoration: underline; text-underline-offset: 3px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* One orchestrated page-load reveal — used on the hero only. */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.rise { animation: rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.rise-1 { animation-delay: 0.05s; }
+.rise-2 { animation-delay: 0.13s; }
+.rise-3 { animation-delay: 0.21s; }

@@ -1,0 +1,707 @@
+import type { Product, ProductCategory, TechnicalResource } from '@/types';
+
+/* Demo catalogue used until NEXT_PUBLIC_API_BASE_URL is set. Structure matches
+   the API contract exactly, so switching to the live backend changes nothing. */
+
+export const categories: ProductCategory[] = [
+  {
+    id: 1,
+    name: 'Pumps',
+    slug: 'pumps',
+    description:
+      'Centrifugal, multistage and submersible pump ranges for water supply, process transfer, fire protection and dewatering duties.',
+    image: { id: 'c1', url: '/media/pump-centrifugal.svg', alt: 'Pump range' },
+    productCount: 5,
+    order: 1,
+    children: [
+      { id: 11, name: 'End-suction centrifugal', slug: 'end-suction-centrifugal', parent: 'pumps', productCount: 2 },
+      { id: 12, name: 'Vertical multistage', slug: 'vertical-multistage', parent: 'pumps', productCount: 1 },
+      { id: 13, name: 'Submersible', slug: 'submersible', parent: 'pumps', productCount: 1 },
+      { id: 14, name: 'Split case', slug: 'split-case', parent: 'pumps', productCount: 1 },
+    ],
+  },
+  {
+    id: 2,
+    name: 'Valves',
+    slug: 'valves',
+    description:
+      'Isolation, regulation and non-return valves in cast iron, ductile iron, carbon steel and stainless steel for utility and process lines.',
+    image: { id: 'c2', url: '/media/valve-gate.svg', alt: 'Valve range' },
+    productCount: 4,
+    order: 2,
+    children: [
+      { id: 21, name: 'Gate valves', slug: 'gate-valves', parent: 'valves', productCount: 1 },
+      { id: 22, name: 'Butterfly valves', slug: 'butterfly-valves', parent: 'valves', productCount: 1 },
+      { id: 23, name: 'Check valves', slug: 'check-valves', parent: 'valves', productCount: 1 },
+      { id: 24, name: 'Control valves', slug: 'control-valves', parent: 'valves', productCount: 1 },
+    ],
+  },
+  {
+    id: 3,
+    name: 'Strainers & filtration',
+    slug: 'strainers-filtration',
+    description: 'Line strainers and basket filters that protect pumps, meters and control valves from debris.',
+    image: { id: 'c3', url: '/media/strainer.svg', alt: 'Strainer range' },
+    productCount: 1,
+    order: 3,
+    children: [],
+  },
+  {
+    id: 4,
+    name: 'Pipes & fittings',
+    slug: 'pipes-fittings',
+    description: 'Flanges, bends, reducers and fabricated spools supplied to project drawings and international standards.',
+    image: { id: 'c4', url: '/media/fitting.svg', alt: 'Fittings range' },
+    productCount: 1,
+    order: 4,
+    children: [],
+  },
+];
+
+const catalogue = (id: number, title: string, product: string, revision: string): TechnicalResource => ({
+  id: `res-cat-${id}`,
+  title,
+  slug: `catalogue-${product}`,
+  type: 'catalogue',
+  fileUrl: '#',
+  fileFormat: 'PDF',
+  fileSize: '4.2 MB',
+  revision,
+  language: 'English',
+  updatedAt: '2026-06-14',
+});
+
+export const resources: TechnicalResource[] = [
+  catalogue(1, 'SIN-EC series product catalogue', 'sin-ec', 'Rev. 06'),
+  {
+    id: 'res-2',
+    title: 'SIN-EC 80-200 technical datasheet',
+    slug: 'sin-ec-80-200-datasheet',
+    type: 'datasheet',
+    fileUrl: '#',
+    fileFormat: 'PDF',
+    fileSize: '780 KB',
+    revision: 'Rev. 03',
+    language: 'English',
+    updatedAt: '2026-07-02',
+    product: { id: 101, name: 'SIN-EC End-suction Centrifugal Pump', slug: 'sin-ec-end-suction-centrifugal-pump' },
+    description: 'Performance curves, dimensional drawings and material schedule for the 80-200 hydraulic size.',
+  },
+  {
+    id: 'res-3',
+    title: 'SIN-VM installation, operation & maintenance manual',
+    slug: 'sin-vm-iom-manual',
+    type: 'manual',
+    fileUrl: '#',
+    fileFormat: 'PDF',
+    fileSize: '6.1 MB',
+    revision: 'Rev. 02',
+    language: 'English',
+    updatedAt: '2026-05-21',
+    product: { id: 102, name: 'SIN-VM Vertical Multistage Pump', slug: 'sin-vm-vertical-multistage-pump' },
+  },
+  {
+    id: 'res-4',
+    title: 'ISO 9001:2015 quality management certificate',
+    slug: 'iso-9001-certificate',
+    type: 'certificate',
+    fileUrl: '#',
+    fileFormat: 'PDF',
+    fileSize: '410 KB',
+    language: 'English',
+    updatedAt: '2026-02-11',
+    description: 'Scope: manufacture, assembly and supply of industrial flow-control equipment.',
+  },
+  {
+    id: 'res-5',
+    title: 'SIN-BF butterfly valve dimensional drawing',
+    slug: 'sin-bf-dimensional-drawing',
+    type: 'drawing',
+    fileUrl: '#',
+    fileFormat: 'PDF',
+    fileSize: '1.3 MB',
+    revision: 'Rev. 04',
+    language: 'English',
+    updatedAt: '2026-06-30',
+    product: { id: 202, name: 'SIN-BF Concentric Butterfly Valve', slug: 'sin-bf-concentric-butterfly-valve' },
+  },
+  {
+    id: 'res-6',
+    title: 'SIN-GV gate valve 3D model (STEP)',
+    slug: 'sin-gv-step-model',
+    type: 'cad',
+    fileUrl: '#',
+    fileFormat: 'STEP',
+    fileSize: '11.4 MB',
+    revision: 'Rev. 01',
+    language: '—',
+    updatedAt: '2026-04-09',
+    product: { id: 201, name: 'SIN-GV Resilient Seated Gate Valve', slug: 'sin-gv-resilient-seated-gate-valve' },
+  },
+  {
+    id: 'res-7',
+    title: 'Fire protection pump set selection guide',
+    slug: 'fire-pump-selection-guide',
+    type: 'catalogue',
+    fileUrl: '#',
+    fileFormat: 'PDF',
+    fileSize: '3.0 MB',
+    revision: 'Rev. 02',
+    language: 'English',
+    updatedAt: '2026-03-18',
+  },
+  {
+    id: 'res-8',
+    title: 'Material & pressure rating reference chart',
+    slug: 'material-pressure-rating-chart',
+    type: 'datasheet',
+    fileUrl: '#',
+    fileFormat: 'PDF',
+    fileSize: '520 KB',
+    language: 'English',
+    updatedAt: '2026-01-27',
+  },
+];
+
+const ind = {
+  water: { id: 'i1', name: 'Water & wastewater', slug: 'water-wastewater' },
+  power: { id: 'i2', name: 'Power generation', slug: 'power-generation' },
+  textile: { id: 'i3', name: 'Textile & dyeing', slug: 'textile-dyeing' },
+  food: { id: 'i4', name: 'Food & beverage', slug: 'food-beverage' },
+  building: { id: 'i5', name: 'Building services', slug: 'building-services' },
+  chemical: { id: 'i6', name: 'Chemical & process', slug: 'chemical-process' },
+};
+
+const app = {
+  boosting: { id: 'a1', name: 'Pressure boosting', slug: 'pressure-boosting' },
+  fire: { id: 'a2', name: 'Fire protection', slug: 'fire-protection' },
+  transfer: { id: 'a3', name: 'Process transfer', slug: 'process-transfer' },
+  cooling: { id: 'a4', name: 'Cooling water circulation', slug: 'cooling-water-circulation' },
+  dewatering: { id: 'a5', name: 'Dewatering', slug: 'dewatering' },
+  isolation: { id: 'a6', name: 'Line isolation', slug: 'line-isolation' },
+};
+
+export const products: Product[] = [
+  {
+    id: 101,
+    name: 'SIN-EC End-suction Centrifugal Pump',
+    slug: 'sin-ec-end-suction-centrifugal-pump',
+    model: 'SIN-EC',
+    code: 'EC-32/125 — 200/400',
+    summary:
+      'Single-stage, back pull-out centrifugal pump built to EN 733 dimensions for clean and lightly contaminated water.',
+    description:
+      'The SIN-EC is a horizontal, single-stage volute casing pump with a back pull-out design, so the complete rotating assembly can be removed without disturbing the pipework or motor alignment. Hydraulics are matched to EN 733 mounting dimensions, which keeps the range interchangeable with existing installations across water supply, HVAC and general process duties.',
+    image: { id: 'p101', url: '/media/pump-centrifugal.svg', alt: 'SIN-EC end-suction centrifugal pump' },
+    images: [{ id: 'p101', url: '/media/pump-centrifugal.svg', alt: 'SIN-EC end-suction centrifugal pump' }],
+    category: { id: 1, name: 'Pumps', slug: 'pumps' },
+    family: { id: 11, name: 'End-suction centrifugal', slug: 'end-suction-centrifugal' },
+    isFeatured: true,
+    status: 'published',
+    highlights: ['Flow to 1,200 m³/h', 'Head to 160 m', 'EN 733 dimensions'],
+    features: [
+      'Back pull-out construction — service without breaking pipework',
+      'Replaceable wear rings extend casing life',
+      'Balanced mechanical seal to EN 12756, cartridge option available',
+      'Cast iron, ductile iron, bronze and stainless steel casings',
+      'Standard IEC motor interface for straightforward replacement',
+    ],
+    specGroups: [
+      {
+        title: 'Hydraulic performance',
+        items: [
+          { label: 'Capacity', value: 'up to 1,200', unit: 'm³/h' },
+          { label: 'Head', value: 'up to 160', unit: 'm' },
+          { label: 'Speed', value: '1,450 / 2,900', unit: 'rpm' },
+          { label: 'Maximum working pressure', value: '16', unit: 'bar' },
+          { label: 'Liquid temperature', value: '-10 to +140', unit: '°C' },
+        ],
+      },
+      {
+        title: 'Materials of construction',
+        items: [
+          { label: 'Casing', value: 'Cast iron GG25 / ductile iron / SS 316' },
+          { label: 'Impeller', value: 'Bronze / SS 316 / duplex on request' },
+          { label: 'Shaft', value: 'AISI 431 stainless steel' },
+          { label: 'Shaft seal', value: 'Mechanical seal, EN 12756' },
+        ],
+      },
+      {
+        title: 'Connections & drive',
+        items: [
+          { label: 'Suction / discharge', value: 'DN 32 to DN 200' },
+          { label: 'Flange standard', value: 'EN 1092-2 PN16 / ASME B16.5 150#' },
+          { label: 'Motor', value: 'IE3 TEFC, 1.1 to 250 kW' },
+          { label: 'Protection', value: 'IP55, insulation class F' },
+        ],
+      },
+    ],
+    industries: [ind.water, ind.building, ind.power, ind.textile],
+    applications: [app.boosting, app.cooling, app.transfer],
+    standards: ['EN 733', 'ISO 9906 Grade 3B', 'ISO 5199', 'EN 1092-2'],
+    notes:
+      'Performance figures apply to clean water at 20 °C. Duty point, NPSHa and driver selection are confirmed against project data before order.',
+    resources: [resources[0], resources[1]],
+    related: [],
+    seo: {
+      title: 'SIN-EC End-suction Centrifugal Pump | Sazin Innovative Industries',
+      description:
+        'EN 733 back pull-out centrifugal pump. Flow to 1,200 m³/h, head to 160 m, DN 32–200. Datasheets and curves available for download.',
+    },
+  },
+  {
+    id: 102,
+    name: 'SIN-VM Vertical Multistage Pump',
+    slug: 'sin-vm-vertical-multistage-pump',
+    model: 'SIN-VM',
+    code: 'VM 1 — VM 125',
+    summary:
+      'In-line vertical multistage pump for high-pressure, low-footprint boosting in buildings, process plant and RO feed systems.',
+    description:
+      'The SIN-VM stacks stainless steel stages in a vertical in-line body, delivering high discharge pressure from a compact footprint. Suction and discharge share a common centreline, so the pump drops straight into an existing pipe run. Stage count is selected to the exact duty rather than throttled down from an oversized unit.',
+    image: { id: 'p102', url: '/media/pump-vertical.svg', alt: 'SIN-VM vertical multistage pump' },
+    images: [{ id: 'p102', url: '/media/pump-vertical.svg', alt: 'SIN-VM vertical multistage pump' }],
+    category: { id: 1, name: 'Pumps', slug: 'pumps' },
+    family: { id: 12, name: 'Vertical multistage', slug: 'vertical-multistage' },
+    isFeatured: true,
+    status: 'published',
+    highlights: ['Pressure to 40 bar', 'Flow to 200 m³/h', 'AISI 304 / 316 wetted parts'],
+    features: [
+      'In-line suction and discharge on a common centreline',
+      'Stainless steel stages, chambers and impellers as standard',
+      'Cartridge mechanical seal replaceable without dismantling the pump',
+      'Variable-speed ready for constant-pressure control',
+      'Stage count matched to duty, no permanent throttling',
+    ],
+    specGroups: [
+      {
+        title: 'Hydraulic performance',
+        items: [
+          { label: 'Capacity', value: 'up to 200', unit: 'm³/h' },
+          { label: 'Discharge pressure', value: 'up to 40', unit: 'bar' },
+          { label: 'Speed', value: '2,900', unit: 'rpm' },
+          { label: 'Liquid temperature', value: '-15 to +120', unit: '°C' },
+        ],
+      },
+      {
+        title: 'Materials of construction',
+        items: [
+          { label: 'Chambers & impellers', value: 'AISI 304 / AISI 316' },
+          { label: 'Pump head', value: 'Cast iron with cataphoresis coating' },
+          { label: 'Shaft seal', value: 'Cartridge mechanical seal' },
+          { label: 'Elastomers', value: 'EPDM / FKM' },
+        ],
+      },
+      {
+        title: 'Connections & drive',
+        items: [
+          { label: 'Connection sizes', value: 'DN 25 to DN 100' },
+          { label: 'Connection type', value: 'Oval, round or Victaulic' },
+          { label: 'Motor', value: 'IE3, 0.37 to 75 kW' },
+          { label: 'Control option', value: 'Integrated VFD available' },
+        ],
+      },
+    ],
+    industries: [ind.building, ind.food, ind.chemical, ind.water],
+    applications: [app.boosting, app.transfer, app.fire],
+    standards: ['EN ISO 9906', 'EN 60034-1', 'PED 2014/68/EU'],
+    resources: [resources[2]],
+    related: [],
+    seo: {
+      title: 'SIN-VM Vertical Multistage Pump | Sazin Innovative Industries',
+      description:
+        'Compact vertical multistage pump to 40 bar and 200 m³/h with stainless steel hydraulics and cartridge seal.',
+    },
+  },
+  {
+    id: 103,
+    name: 'SIN-SC Double Suction Split Case Pump',
+    slug: 'sin-sc-double-suction-split-case-pump',
+    model: 'SIN-SC',
+    code: 'SC-150 — SC-600',
+    summary: 'Axially split casing pump for high-volume water transport, cooling circuits and fire-water mains.',
+    description:
+      'A double-suction impeller balances axial thrust and halves the inlet velocity, which lowers NPSH required and extends bearing life on continuous-duty circuits. The axially split casing allows the rotating element to be inspected by lifting the top half only.',
+    image: { id: 'p103', url: '/media/pump-centrifugal.svg', alt: 'SIN-SC split case pump' },
+    images: [{ id: 'p103', url: '/media/pump-centrifugal.svg', alt: 'SIN-SC split case pump' }],
+    category: { id: 1, name: 'Pumps', slug: 'pumps' },
+    family: { id: 14, name: 'Split case', slug: 'split-case' },
+    isFeatured: true,
+    status: 'published',
+    highlights: ['Flow to 6,000 m³/h', 'Low NPSH required', 'Top-half inspection'],
+    features: [
+      'Double-suction impeller for hydraulic thrust balance',
+      'Axially split casing — inspect without removing pipework',
+      'Suitable for horizontal or vertical mounting',
+      'Renewable casing wear rings',
+    ],
+    specGroups: [
+      {
+        title: 'Hydraulic performance',
+        items: [
+          { label: 'Capacity', value: 'up to 6,000', unit: 'm³/h' },
+          { label: 'Head', value: 'up to 220', unit: 'm' },
+          { label: 'Maximum working pressure', value: '25', unit: 'bar' },
+          { label: 'Liquid temperature', value: '0 to +105', unit: '°C' },
+        ],
+      },
+      {
+        title: 'Materials of construction',
+        items: [
+          { label: 'Casing', value: 'Ductile iron / cast steel' },
+          { label: 'Impeller', value: 'Bronze / stainless steel' },
+          { label: 'Bearings', value: 'Grease or oil lubricated' },
+        ],
+      },
+    ],
+    industries: [ind.water, ind.power, ind.building],
+    applications: [app.cooling, app.fire, app.transfer],
+    standards: ['ISO 9906', 'NFPA 20 (fire variants)'],
+    resources: [resources[6]],
+    related: [],
+  },
+  {
+    id: 104,
+    name: 'SIN-SB Submersible Drainage Pump',
+    slug: 'sin-sb-submersible-drainage-pump',
+    model: 'SIN-SB',
+    code: 'SB-15 — SB-300',
+    summary: 'Portable and fixed submersible pumps for construction dewatering, sumps and stormwater pits.',
+    description:
+      'Built for abrasive site water, the SIN-SB pairs a high-chrome wear plate with an agitator on the larger frames so settled solids stay in suspension. Motors are class F with double mechanical seals and a moisture sensor on fixed installations.',
+    image: { id: 'p104', url: '/media/pump-vertical.svg', alt: 'SIN-SB submersible pump' },
+    images: [{ id: 'p104', url: '/media/pump-vertical.svg', alt: 'SIN-SB submersible pump' }],
+    category: { id: 1, name: 'Pumps', slug: 'pumps' },
+    family: { id: 13, name: 'Submersible', slug: 'submersible' },
+    status: 'published',
+    highlights: ['Flow to 900 m³/h', 'Solids to 80 mm', 'High-chrome wear parts'],
+    features: [
+      'High-chrome agitator and wear plate for abrasive water',
+      'Double mechanical seal in an oil chamber',
+      'Continuous duty in partially submerged condition',
+      'Hard-wearing cable entry with strain relief',
+    ],
+    specGroups: [
+      {
+        title: 'Hydraulic performance',
+        items: [
+          { label: 'Capacity', value: 'up to 900', unit: 'm³/h' },
+          { label: 'Head', value: 'up to 90', unit: 'm' },
+          { label: 'Solids handling', value: 'up to 80', unit: 'mm' },
+          { label: 'Submergence', value: 'up to 20', unit: 'm' },
+        ],
+      },
+      {
+        title: 'Motor & protection',
+        items: [
+          { label: 'Rating', value: '1.5 to 160 kW' },
+          { label: 'Enclosure', value: 'IP68' },
+          { label: 'Protection', value: 'Thermal cut-out, moisture sensor' },
+        ],
+      },
+    ],
+    industries: [ind.water, ind.power],
+    applications: [app.dewatering, app.transfer],
+    standards: ['IEC 60034-5 IP68'],
+    resources: [],
+    related: [],
+  },
+  {
+    id: 201,
+    name: 'SIN-GV Resilient Seated Gate Valve',
+    slug: 'sin-gv-resilient-seated-gate-valve',
+    model: 'SIN-GV',
+    code: 'GV-50 — GV-600',
+    summary: 'Full-bore ductile iron gate valve with a fully encapsulated wedge for potable and raw water networks.',
+    description:
+      'The wedge is fully vulcanised in EPDM, so the valve seals against an unmachined, epoxy-coated bore and there is no seat pocket for grit to collect in. The full-bore waterway keeps head loss close to that of straight pipe, which matters on long distribution mains.',
+    image: { id: 'p201', url: '/media/valve-gate.svg', alt: 'SIN-GV gate valve' },
+    images: [{ id: 'p201', url: '/media/valve-gate.svg', alt: 'SIN-GV gate valve' }],
+    category: { id: 2, name: 'Valves', slug: 'valves' },
+    family: { id: 21, name: 'Gate valves', slug: 'gate-valves' },
+    isFeatured: true,
+    status: 'published',
+    highlights: ['DN 50 – DN 600', 'PN 10 / PN 16', 'Fusion-bonded epoxy'],
+    features: [
+      'Fully encapsulated EPDM wedge, no seat pocket',
+      'Full-bore waterway for minimal head loss',
+      'Fusion-bonded epoxy coating inside and out, 250 µm',
+      'Non-rising stem with triple O-ring seal',
+      'Potable water approved elastomers',
+    ],
+    specGroups: [
+      {
+        title: 'Design & rating',
+        items: [
+          { label: 'Size range', value: 'DN 50 to DN 600' },
+          { label: 'Pressure rating', value: 'PN 10 / PN 16' },
+          { label: 'Temperature range', value: '0 to +70', unit: '°C' },
+          { label: 'Face-to-face', value: 'EN 558 Series 14 / 15' },
+        ],
+      },
+      {
+        title: 'Materials of construction',
+        items: [
+          { label: 'Body & bonnet', value: 'Ductile iron GGG-50' },
+          { label: 'Wedge', value: 'Ductile iron, EPDM encapsulated' },
+          { label: 'Stem', value: 'Stainless steel AISI 420' },
+          { label: 'Coating', value: 'Fusion-bonded epoxy, 250 µm' },
+        ],
+      },
+    ],
+    industries: [ind.water, ind.building, ind.power],
+    applications: [app.isolation],
+    standards: ['EN 1074-2', 'EN 1171', 'ISO 5208 Rate A', 'WRAS-type potable approval'],
+    resources: [resources[5]],
+    related: [],
+  },
+  {
+    id: 202,
+    name: 'SIN-BF Concentric Butterfly Valve',
+    slug: 'sin-bf-concentric-butterfly-valve',
+    model: 'SIN-BF',
+    code: 'BF-50 — BF-1200',
+    summary: 'Wafer and lugged butterfly valves for isolation and throttling in water, HVAC and utility service.',
+    description:
+      'A one-piece moulded liner seals both the seat and the flange face, removing the need for separate gaskets. Bodies are drilled to suit EN, ASME and JIS flanges, and the ISO 5211 top flange accepts lever, gearbox, electric or pneumatic actuation without an adapter kit.',
+    image: { id: 'p202', url: '/media/valve-butterfly.svg', alt: 'SIN-BF butterfly valve' },
+    images: [{ id: 'p202', url: '/media/valve-butterfly.svg', alt: 'SIN-BF butterfly valve' }],
+    category: { id: 2, name: 'Valves', slug: 'valves' },
+    family: { id: 22, name: 'Butterfly valves', slug: 'butterfly-valves' },
+    isFeatured: true,
+    status: 'published',
+    highlights: ['DN 50 – DN 1200', 'ISO 5211 mounting', 'Bubble-tight shut-off'],
+    features: [
+      'One-piece liner seals seat and flange faces together',
+      'ISO 5211 top flange for direct actuator mounting',
+      'Wafer, lugged and double-flanged bodies',
+      'Bubble-tight bi-directional shut-off',
+    ],
+    specGroups: [
+      {
+        title: 'Design & rating',
+        items: [
+          { label: 'Size range', value: 'DN 50 to DN 1200' },
+          { label: 'Pressure rating', value: 'PN 10 / PN 16 / 150#' },
+          { label: 'Temperature range', value: '-10 to +120', unit: '°C' },
+          { label: 'Leakage class', value: 'ISO 5208 Rate A' },
+        ],
+      },
+      {
+        title: 'Materials of construction',
+        items: [
+          { label: 'Body', value: 'Ductile iron / carbon steel' },
+          { label: 'Disc', value: 'SS 316 / ductile iron nylon coated' },
+          { label: 'Liner', value: 'EPDM / NBR / PTFE' },
+          { label: 'Stem', value: 'Stainless steel AISI 420' },
+        ],
+      },
+      {
+        title: 'Actuation options',
+        items: [
+          { label: 'Manual', value: 'Lever to DN 200, gearbox above' },
+          { label: 'Electric', value: 'On-off or modulating, 24 V / 230 V / 415 V' },
+          { label: 'Pneumatic', value: 'Double acting or spring return' },
+        ],
+      },
+    ],
+    industries: [ind.water, ind.building, ind.textile, ind.chemical],
+    applications: [app.isolation, app.cooling],
+    standards: ['EN 593', 'API 609', 'ISO 5211', 'ISO 5208 Rate A'],
+    resources: [resources[4]],
+    related: [],
+  },
+  {
+    id: 203,
+    name: 'SIN-CV Swing Check Valve',
+    slug: 'sin-cv-swing-check-valve',
+    model: 'SIN-CV',
+    code: 'CV-50 — CV-600',
+    summary: 'Non-return valve with a resilient-faced disc that closes on reverse flow to protect pumps and meters.',
+    description:
+      'The disc pivots on a replaceable hinge pin above the waterway, so wear items can be changed without removing the body from the line. A lever-and-weight or damper option is available where surge control is required on longer mains.',
+    image: { id: 'p203', url: '/media/valve-gate.svg', alt: 'SIN-CV check valve' },
+    images: [{ id: 'p203', url: '/media/valve-gate.svg', alt: 'SIN-CV check valve' }],
+    category: { id: 2, name: 'Valves', slug: 'valves' },
+    family: { id: 23, name: 'Check valves', slug: 'check-valves' },
+    status: 'published',
+    highlights: ['DN 50 – DN 600', 'Lever & weight option', 'Serviceable in line'],
+    features: [
+      'Resilient-faced disc for tight reverse-flow sealing',
+      'Hinge pin and seat replaceable in line',
+      'Optional lever and weight for surge damping',
+    ],
+    specGroups: [
+      {
+        title: 'Design & rating',
+        items: [
+          { label: 'Size range', value: 'DN 50 to DN 600' },
+          { label: 'Pressure rating', value: 'PN 10 / PN 16' },
+          { label: 'Face-to-face', value: 'EN 558 Series 48' },
+        ],
+      },
+      {
+        title: 'Materials of construction',
+        items: [
+          { label: 'Body', value: 'Ductile iron GGG-50' },
+          { label: 'Disc', value: 'Ductile iron with EPDM facing' },
+          { label: 'Hinge pin', value: 'Stainless steel AISI 316' },
+        ],
+      },
+    ],
+    industries: [ind.water, ind.building],
+    applications: [app.isolation, app.boosting],
+    standards: ['EN 12334', 'EN 1074-3'],
+    resources: [],
+    related: [],
+  },
+  {
+    id: 204,
+    name: 'SIN-PR Pressure Reducing Control Valve',
+    slug: 'sin-pr-pressure-reducing-control-valve',
+    model: 'SIN-PR',
+    code: 'PR-50 — PR-400',
+    summary: 'Diaphragm-actuated control valve that holds a constant downstream pressure regardless of demand.',
+    description:
+      'A hydraulically operated diaphragm valve with a pilot circuit that modulates the main valve to maintain a set downstream pressure. Used to protect district networks and building risers from upstream pressure swings and to reduce background leakage.',
+    image: { id: 'p204', url: '/media/valve-gate.svg', alt: 'SIN-PR control valve' },
+    images: [{ id: 'p204', url: '/media/valve-gate.svg', alt: 'SIN-PR control valve' }],
+    category: { id: 2, name: 'Valves', slug: 'valves' },
+    family: { id: 24, name: 'Control valves', slug: 'control-valves' },
+    status: 'published',
+    highlights: ['DN 50 – DN 400', 'Adjustable set point', 'No external power'],
+    features: [
+      'Hydraulically operated — no external power required',
+      'Field-adjustable downstream set point',
+      'Single moving assembly, serviceable in line',
+      'Pilot circuit configurable for sustaining or relief duty',
+    ],
+    specGroups: [
+      {
+        title: 'Design & rating',
+        items: [
+          { label: 'Size range', value: 'DN 50 to DN 400' },
+          { label: 'Pressure rating', value: 'PN 16 / PN 25' },
+          { label: 'Control range', value: '1 to 16', unit: 'bar' },
+        ],
+      },
+      {
+        title: 'Materials of construction',
+        items: [
+          { label: 'Body', value: 'Ductile iron, epoxy coated' },
+          { label: 'Diaphragm', value: 'Nylon-reinforced NBR' },
+          { label: 'Pilot circuit', value: 'Brass / stainless steel' },
+        ],
+      },
+    ],
+    industries: [ind.water, ind.building],
+    applications: [app.boosting, app.isolation],
+    standards: ['EN 1074-5'],
+    resources: [],
+    related: [],
+  },
+  {
+    id: 301,
+    name: 'SIN-YS Y-Type Line Strainer',
+    slug: 'sin-ys-y-type-line-strainer',
+    model: 'SIN-YS',
+    code: 'YS-15 — YS-300',
+    summary: 'Inline strainer that captures scale and debris before it reaches pumps, meters and control valves.',
+    description:
+      'The angled screen chamber lets the strainer be cleaned through a blow-down connection without isolating the line in most utility applications. Screen perforation is selected against the downstream equipment rather than supplied to a single default.',
+    image: { id: 'p301', url: '/media/strainer.svg', alt: 'SIN-YS Y-type strainer' },
+    images: [{ id: 'p301', url: '/media/strainer.svg', alt: 'SIN-YS Y-type strainer' }],
+    category: { id: 3, name: 'Strainers & filtration', slug: 'strainers-filtration' },
+    status: 'published',
+    highlights: ['DN 15 – DN 300', 'Blow-down connection', 'Selectable mesh'],
+    features: [
+      'Stainless steel screen, perforation selected to duty',
+      'Blow-down connection for on-line cleaning',
+      'Screwed, flanged and wafer bodies',
+    ],
+    specGroups: [
+      {
+        title: 'Design & rating',
+        items: [
+          { label: 'Size range', value: 'DN 15 to DN 300' },
+          { label: 'Pressure rating', value: 'PN 16 / PN 25 / 150#' },
+          { label: 'Screen perforation', value: '0.8 / 1.6 / 3.2', unit: 'mm' },
+        ],
+      },
+      {
+        title: 'Materials of construction',
+        items: [
+          { label: 'Body', value: 'Cast iron / carbon steel / SS 316' },
+          { label: 'Screen', value: 'Stainless steel AISI 304 / 316' },
+        ],
+      },
+    ],
+    industries: [ind.water, ind.textile, ind.food, ind.chemical],
+    applications: [app.transfer, app.cooling],
+    standards: ['EN 1092-1', 'ASME B16.34'],
+    resources: [resources[7]],
+    related: [],
+  },
+  {
+    id: 401,
+    name: 'Fabricated Pipe Spools & Flanged Fittings',
+    slug: 'fabricated-pipe-spools-flanged-fittings',
+    model: 'SIN-FAB',
+    code: 'Project specific',
+    summary: 'Bends, reducers, headers and spools fabricated to project drawings in carbon and stainless steel.',
+    description:
+      'Fabrication is carried out against approved drawings with welder qualification records, dimensional inspection and coating applied before despatch. Spools are match-marked and packed by installation sequence so site teams are not sorting steel on the day of erection.',
+    image: { id: 'p401', url: '/media/fitting.svg', alt: 'Fabricated pipe spools' },
+    images: [{ id: 'p401', url: '/media/fitting.svg', alt: 'Fabricated pipe spools' }],
+    category: { id: 4, name: 'Pipes & fittings', slug: 'pipes-fittings' },
+    status: 'published',
+    highlights: ['DN 25 – DN 1200', 'WPS/PQR records', 'Coated before despatch'],
+    features: [
+      'Fabricated to approved shop drawings',
+      'Qualified welding procedures and welder records supplied',
+      'Dimensional and NDT inspection reports',
+      'Surface preparation and coating to project specification',
+    ],
+    specGroups: [
+      {
+        title: 'Scope',
+        items: [
+          { label: 'Size range', value: 'DN 25 to DN 1200' },
+          { label: 'Materials', value: 'Carbon steel, SS 304 / 316' },
+          { label: 'Flange standards', value: 'EN 1092-1, ASME B16.5, JIS' },
+        ],
+      },
+      {
+        title: 'Quality documentation',
+        items: [
+          { label: 'Welding', value: 'WPS / PQR / WQT records' },
+          { label: 'Inspection', value: 'Visual, dimensional, DPT / RT on request' },
+          { label: 'Traceability', value: 'Mill test certificates' },
+        ],
+      },
+    ],
+    industries: [ind.power, ind.chemical, ind.textile, ind.water],
+    applications: [app.transfer, app.cooling],
+    standards: ['ASME B31.3', 'EN 1092-1', 'ASME B16.9'],
+    resources: [],
+    related: [],
+  },
+];
+
+/* Related products are resolved here so the demo data mirrors what the API
+   will return (a serialized list, not a client-side lookup). */
+for (const product of products) {
+  product.related = products
+    .filter((p) => p.id !== product.id && p.category?.slug === product.category?.slug)
+    .slice(0, 3)
+    .map(({ id, name, slug, model, summary, image, category, highlights }) => ({
+      id,
+      name,
+      slug,
+      model,
+      summary,
+      image,
+      category,
+      highlights,
+    }));
+}

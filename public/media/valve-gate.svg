@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Gate valve schematic">
+<rect width="400" height="300" fill="#eaf0f2"/>
+<g fill="none" stroke="#0f3c4c" stroke-width="2.2" stroke-linejoin="round">
+<path d="M60 130 L60 200 L120 200 L120 130 Z"/>
+<path d="M280 130 L280 200 L340 200 L340 130 Z"/>
+<path d="M120 145 L200 165 L200 165 L120 185 Z"/>
+<path d="M280 145 L200 165 L280 185 Z"/>
+<rect x="176" y="86" width="48" height="52" rx="3"/>
+<path d="M200 86 L200 52"/>
+<ellipse cx="200" cy="48" rx="54" ry="10"/>
+<path d="M146 48 Q200 22 254 48"/>
+</g>
+<g stroke="#1b7f9e" stroke-width="1.4" fill="none" stroke-dasharray="5 4"><path d="M40 165 L360 165"/></g>
+</svg>
