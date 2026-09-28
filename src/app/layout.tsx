@@ -7,8 +7,14 @@ import './globals.css';
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await api.site.settings();
+  let metadataBase: URL;
+  try {
+    metadataBase = new URL(SITE_URL);
+  } catch {
+    metadataBase = new URL('http://localhost:3000');
+  }
   return {
-    metadataBase: new URL(SITE_URL),
+    metadataBase,
     title: {
       default: settings.defaultSeo.title ?? settings.legalName,
       template: `%s | ${settings.companyName}`,

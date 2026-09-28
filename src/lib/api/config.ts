@@ -26,8 +26,12 @@ function normalizeSiteUrl(value: string | undefined): string | undefined {
   }
 }
 
+// VERCEL_URL is a runtime-only env var on Vercel — it is NOT available to the
+// static prerender worker. NEXT_PUBLIC_VERCEL_URL can be set in the Vercel
+// dashboard as a build-time mirror of VERCEL_URL if needed.
 export const SITE_URL =
   normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL) ??
+  normalizeSiteUrl(process.env.NEXT_PUBLIC_VERCEL_URL) ??
   normalizeSiteUrl(process.env.VERCEL_URL) ??
   'http://localhost:3000';
 
